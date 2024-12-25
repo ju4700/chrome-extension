@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kahf Guard</title>
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f7fb;
+      height: 100vh;
+      width: 100%;
+      color: #333;
+    }
+
+    .popup-container {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+      width: 60vw; 
+      height: 45vw;
+      max-width: 600px; 
+      max-height: 450px; 
+      min-width: 320px;  
+      min-height: 240px;
+      border: 1px solid #e1e8f0; 
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 15px;
+      color: #2c3e50; 
+      letter-spacing: 0.5px;
+    }
+
+    .description {
+      font-size: 16px;
+      margin: 10px 0 25px;
+      color: #7f8c8d; 
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      text-transform: capitalize;
+      box-sizing: border-box;
+    }
+
+    .strong {
+      background: #3498db; 
+    }
+
+    .strong:hover {
+      background: #2980b9; 
+    }
+
+    .medium {
+      background: #f39c12; 
+    }
+
+    .medium:hover {
+      background: #e67e22;
+    }
+
+    .weak {
+      background: #2ecc71; 
+    }
+
+    .weak:hover {
+      background: #27ae60;
+    }
+
+    .no-protection {
+      background: #e74c3c;
+    }
+
+    .no-protection:hover {
+      background: #c0392b;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #95a5a6;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #3498db;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: #2980b9;
+    }
+
+    @media screen and (max-width: 480px) {
+      .popup-container {
+        width: 80vw;
+        height: auto;
+      }
+
+      .button {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-container">
+    <h1>Kahf Guard</h1>
+    <p class="description">Choose the level of protection for your browsing experience and stay safe online.</p>
+    <button class="button strong" id="strong">Strong Protection</button>
+    <button class="button medium" id="medium">Medium Protection</button>
+    <button class="button weak" id="weak">Weak Protection</button>
+    <button class="button no-protection" id="noProtection">No Protection</button>
+    <footer>
+      <p>&copy; An extension contribution by ju4700 <a href="https://kahfguard.com" target="_blank">Visit Kahf Guard</a></p>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
