@@ -1,6 +1,7 @@
 # Kahf Guard Chrome Extension
 
-A simple and efficient Chrome extension that allows users to easily switch between custom DNS servers for enhanced protection against dangerous websites, content, and other malicious activity.
+I tried a simple Chrome extension that allows users to easily switch between custom DNS servers for enhanced protection against dangerous websites, content, and other malicious activity.
+There still might be some issues because of the lack of documantation on the the kahf guard system. It may be that it is not open to public also, I do not claim anything regarding this. You can consider this a practice project.
 
 ## Features
 
