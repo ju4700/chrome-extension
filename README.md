@@ -3,6 +3,9 @@
 I tried a simple Chrome extension that allows users to easily switch between custom DNS servers for enhanced protection against dangerous websites, content, and other malicious activity.
 There still might be some issues because of the lack of documantation on the the kahf guard system. It may be that it is not open to public also, I do not claim anything regarding this. You can consider this a practice project.
 
+![Screenshot From 2024-12-26 00-57-18](https://github.com/user-attachments/assets/390a3c6b-23f2-4387-8569-1512cbfbf4a7)
+![Screenshot From 2024-12-26 00-56-42](https://github.com/user-attachments/assets/8a58e028-de95-4306-9bfe-a4ed34650400)
+
 ## Features
 
 - Easily switch between multiple protection levels:
