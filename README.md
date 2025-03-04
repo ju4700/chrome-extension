@@ -26,4 +26,4 @@ There still might be some issues because of the lack of documantation on the the
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/kahf-guard-extension.git
+   git clone https://github.com/ju4700/kahf-guard-extension.git
