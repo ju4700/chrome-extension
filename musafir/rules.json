@@ -1,0 +1,8 @@
+[
+    {
+      "id": 1,
+      "priority": 1,
+      "action": { "type": "redirect", "redirect": { "extensionPath": "/blocked.html" } },
+      "condition": { "urlFilter": "*porn*|*xxx*|*sex*|*nude*|*gamble*|*casino*|*bet*|*alcohol*|*beer*|*vodka*|*gore*|*kill*", "resourceTypes": ["main_frame"] }
+    }
+  ]

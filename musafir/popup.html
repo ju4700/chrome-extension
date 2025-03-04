@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Musafir</title>
+  <link rel="stylesheet" href="popup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Musafir</h1>
+    <p class="subtitle">Your shield against haram content</p>
+    <p class="ayah">"Tell the believing men to lower their gaze..." (24:30)</p>
+  </header>
+  <section id="modes">
+    <button id="quick">1 Hour</button>
+    <button id="daily">24 Hours</button>
+    <button id="week">1 Week</button>
+    <button id="month">1 Month</button>
+    <div class="custom-input">
+      <label for="custom">Custom (hours)</label>
+      <input type="number" id="custom" min="1" max="720" placeholder="e.g., 12">
+    </div>
+    <button id="start" class="primary">Lock Now</button>
+  </section>
+  <section id="status" class="status"></section>
+  <section id="override" class="override" style="display:none;">
+    <label for="pin">Enter PIN</label>
+    <input type="password" id="pin" placeholder="6-digit PIN">
+    <button id="unlock" class="warning">Attempt Unlock</button>
+  </section>
+  <footer id="stats" class="stats"></footer>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    width: 340px;
+    padding: 20px;
+    background: #F5F6F5;
+    color: #2D2D2D;
+    line-height: 1.5;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  /* Define Local Arabic Font */
+  @font-face {
+    font-family: 'AlQalam';
+    src: url('AlQalam.ttf') format('truetype');
+  }
+  
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    color: #1A3C34;
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  h1 .arabic {
+    font-family: 'AlQalam', serif;
+    font-size: 28px;
+    font-weight: 700;
+    direction: rtl;
+    color: #1A3C34;
+  }
+  
+  /* Status Section (Updated for Timer) */
+  .status {
+    text-align: center;
+    font-size: 14px;
+    color: #2D2D2D;
+    padding: 15px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.05);
+    margin: 10px 0;
+  }
+  
+  .status span#countdown {
+    font-weight: 700;
+    color: #1A3C34;
+    font-size: 16px;
+    display: block;
+    padding: 8px 12px;
+    background: #E8F0ED; /* Light green background for beauty */
+    border-radius: 3px;
+    margin-top: 5px;
+  }
+  
+  /* Rest of the CSS remains unchanged */
+  .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  .ayah {
+    font-size: 12px;
+    font-style: italic;
+    color: #888;
+    margin-top: 8px;
+  }
+  
+  /* Sections */
+  section {
+    margin-bottom: 20px;
+  }
+  
+  button {
+    background: #1A3C34;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  button:hover {
+    background: #2A5C54;
+  }
+  
+  button:active {
+    background: #14332D;
+  }
+  
+  /* Modes Section */
+  #modes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  #modes button {
+    width: 100%;
+  }
+  
+  .custom-input {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .custom-input label {
+    font-size: 12px;
+    color: #2D2D2D;
+  }
+  
+  .custom-input input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #1A3C34;
+    border-radius: 5px;
+    background: #FFFFFF;
+  }
+  
+  #start.primary {
+    grid-column: span 2;
+    background: #F4A261;
+    font-weight: 700;
+  }
+  
+  #start.primary:hover {
+    background: #F7B583;
+  }
+  
+  #start.primary:active {
+    background: #E68A3E;
+  }
+  
+  /* Override Section */
+  .override {
+    text-align: center;
+  }
+  
+  .override label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  
+  .override input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #990000;
+    border-radius: 5px;
+    background: #FFFFFF;
+    margin-bottom: 10px;
+  }
+  
+  .override button.warning {
+    background: #990000;
+  }
+  
+  .override button.warning:hover {
+    background: #B30000;
+  }
+  
+  .override button.warning:active {
+    background: #800000;
+  }
+  
+  /* Stats Footer */
+  .stats {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid #E0E0E0;
+  }
+  
+  /* Block and Warning Containers */
+  .block-container, .warning-container {
+    max-width: 500px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 30px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .block-container h1, .warning-container h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .block-container p, .warning-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .quote, .ayah {
+    font-style: italic;
+    color: #888;
+    font-size: 14px;
+    margin-top: 15px;
+  }
