@@ -28,11 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hours && hours <= 2592000000) setTimer(hours);
   });
 
-  // Initialize UI
+  // Initialize UI and check active state
   chrome.storage.local.get(['isActive', 'endTime'], (data) => {
     state.isActive = data.isActive || false;
     state.endTime = data.endTime || null;
-    if (state.isActive && state.endTime > Date.now()) updateUI(state.endTime);
+    if (state.isActive && state.endTime > Date.now()) {
+      updateUI(state.endTime); // Display countdown if already active
+    }
   });
 });
 
