@@ -1,225 +1,310 @@
 /* Reset and Base Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Roboto', sans-serif;
-    width: 340px;
-    padding: 20px;
-    background: #F5F6F5;
-    color: #2D2D2D;
-    line-height: 1.5;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  /* Define Local Arabic Font */
-  @font-face {
-    font-family: 'AlQalam';
-    src: url('AlQalam.ttf') format('truetype');
-  }
-  
-  /* Header */
-  header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    color: #1A3C34;
-    font-size: 24px;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  h1 .arabic {
-    font-family: 'AlQalam', serif;
-    font-size: 28px;
-    font-weight: 700;
-    direction: rtl;
-    color: #1A3C34;
-  }
-  
-  /* Status Section (Updated for Timer) */
-  .status {
-    text-align: center;
-    font-size: 14px;
-    color: #2D2D2D;
-    padding: 15px;
-    background: #FFFFFF;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.05);
-    margin: 10px 0;
-  }
-  
-  .status span#countdown {
-    font-weight: 700;
-    color: #1A3C34;
-    font-size: 16px;
-    display: block;
-    padding: 8px 12px;
-    background: #E8F0ED; /* Light green background for beauty */
-    border-radius: 3px;
-    margin-top: 5px;
-  }
-  
-  /* Rest of the CSS remains unchanged */
-  .subtitle {
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
-  }
-  
-  .ayah {
-    font-size: 12px;
-    font-style: italic;
-    color: #888;
-    margin-top: 8px;
-  }
-  
-  /* Sections */
-  section {
-    margin-bottom: 20px;
-  }
-  
-  button {
-    background: #1A3C34;
-    color: #FFFFFF;
-    border: none;
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  button:hover {
-    background: #2A5C54;
-  }
-  
-  button:active {
-    background: #14332D;
-  }
-  
-  /* Modes Section */
-  #modes {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  
-  #modes button {
-    width: 100%;
-  }
-  
-  .custom-input {
-    grid-column: span 2;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .custom-input label {
-    font-size: 12px;
-    color: #2D2D2D;
-  }
-  
-  .custom-input input {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #1A3C34;
-    border-radius: 5px;
-    background: #FFFFFF;
-  }
-  
-  #start.primary {
-    grid-column: span 2;
-    background: #F4A261;
-    font-weight: 700;
-  }
-  
-  #start.primary:hover {
-    background: #F7B583;
-  }
-  
-  #start.primary:active {
-    background: #E68A3E;
-  }
-  
-  /* Override Section */
-  .override {
-    text-align: center;
-  }
-  
-  .override label {
-    display: block;
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
-  
-  .override input {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #990000;
-    border-radius: 5px;
-    background: #FFFFFF;
-    margin-bottom: 10px;
-  }
-  
-  .override button.warning {
-    background: #990000;
-  }
-  
-  .override button.warning:hover {
-    background: #B30000;
-  }
-  
-  .override button.warning:active {
-    background: #800000;
-  }
-  
-  /* Stats Footer */
-  .stats {
-    font-size: 12px;
-    color: #666;
-    text-align: center;
-    padding-top: 10px;
-    border-top: 1px solid #E0E0E0;
-  }
-  
-  /* Block and Warning Containers */
-  .block-container, .warning-container {
-    max-width: 500px;
-    margin: 50px auto;
-    text-align: center;
-    padding: 30px;
-    background: #FFFFFF;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .block-container h1, .warning-container h1 {
-    font-size: 28px;
-    margin-bottom: 15px;
-  }
-  
-  .block-container p, .warning-container p {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .quote, .ayah {
-    font-style: italic;
-    color: #888;
-    font-size: 14px;
-    margin-top: 15px;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  width: 360px;
+  padding: 20px;
+  background: #F5F6F5;
+  color: #2D2D2D;
+  line-height: 1.5;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+/* Define Local Arabic Font */
+@font-face {
+  font-family: 'AlQalam';
+  src: url('AlQalam.ttf') format('truetype');
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(26, 60, 52, 0.08);
+}
+
+h1 {
+  color: #1A3C34;
+  font-size: 26px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+h1 .arabic {
+  font-family: 'AlQalam', serif;
+  font-size: 30px;
+  font-weight: 700;
+  direction: rtl;
+  color: #1A3C34;
+}
+
+/* Status Section (Updated for Timer) */
+.status {
+  text-align: center;
+  font-size: 14px;
+  color: #2D2D2D;
+  padding: 16px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(26, 60, 52, 0.06);
+  margin: 12px 0;
+  border: 1px solid rgba(26, 60, 52, 0.05);
+}
+
+.status span#countdown {
+  font-weight: 700;
+  color: #1A3C34;
+  font-size: 18px;
+  display: block;
+  padding: 10px 14px;
+  background: #E8F0ED;
+  border-radius: 6px;
+  margin-top: 6px;
+  box-shadow: inset 0 1px 3px rgba(26, 60, 52, 0.05);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #555;
+  margin-top: 6px;
+}
+
+.ayah {
+  font-size: 13px;
+  font-style: italic;
+  color: #777;
+  margin: 10px auto; /* Changed from margin-top to margin with auto for horizontal centering */
+  line-height: 1.6;
+  max-width: 320px; /* Added a max-width to constrain the content */
+  text-align: center; /* Centers the text inside the element */
+  padding: 8px; /* Added some padding for better appearance */
+}
+
+/* Sections */
+section {
+  margin-bottom: 28px;
+  padding: 0 4px;
+}
+
+button {
+  background: #1A3C34;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(26, 60, 52, 0.15);
+  letter-spacing: 0.3px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+button:hover {
+  background: #2A5C54;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(26, 60, 52, 0.2);
+}
+
+button:active {
+  background: #14332D;
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(26, 60, 52, 0.2);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 60, 52, 0.25);
+}
+
+/* Modes Section */
+#modes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+#modes button {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-input {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.custom-input label {
+  font-size: 14px;
+  color: #333333;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.custom-input input {
+  padding: 12px 14px;
+  font-size: 14px;
+  border: 1px solid rgba(26, 60, 52, 0.25);
+  border-radius: 6px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+  color: #333333;
+}
+
+.custom-input input:hover {
+  border-color: rgba(26, 60, 52, 0.4);
+}
+
+.custom-input input:focus {
+  border-color: #1A3C34;
+  box-shadow: 0 0 0 3px rgba(26, 60, 52, 0.1);
+  outline: none;
+}
+
+#start.primary {
+  grid-column: span 2;
+  background: #F4A261;
+  font-weight: 600;
+  margin-top: 10px;
+  box-shadow: 0 3px 6px rgba(244, 162, 97, 0.2);
+  min-height: 48px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+#start.primary:hover {
+  background: #F7B583;
+  box-shadow: 0 4px 10px rgba(244, 162, 97, 0.3);
+}
+
+#start.primary:active {
+  background: #E68A3E;
+  box-shadow: 0 2px 4px rgba(244, 162, 97, 0.3);
+}
+
+#start.primary:focus {
+  box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.3);
+}
+
+/* Override Section */
+.override {
+  text-align: center;
+  padding: 15px;
+  background-color: rgba(153, 0, 0, 0.03);
+  border-radius: 8px;
+  border: 1px dashed rgba(153, 0, 0, 0.15);
+}
+
+.override label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #555;
+  font-weight: 500;
+}
+
+.override input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid rgba(153, 0, 0, 0.3);
+  border-radius: 6px;
+  background: #FFFFFF;
+  margin-bottom: 12px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.override button.warning {
+  background: #990000;
+  box-shadow: 0 2px 4px rgba(153, 0, 0, 0.2);
+}
+
+.override button.warning:hover {
+  background: #B30000;
+  box-shadow: 0 3px 6px rgba(153, 0, 0, 0.3);
+}
+
+.override button.warning:active {
+  background: #800000;
+  box-shadow: 0 1px 2px rgba(153, 0, 0, 0.3);
+}
+
+/* Stats Footer */
+.stats {
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin-top: 10px;
+}
+
+/* Block and Warning Containers */
+.block-container, .warning-container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  border: 1px solid rgba(26, 60, 52, 0.1);
+}
+
+.warning-container {
+  border: 1px solid rgba(153, 0, 0, 0.2);
+}
+
+.block-container h1, .warning-container h1 {
+  margin-top: 150px;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #1A3C34;
+}
+
+.warning-container h1 {
+  color: #990000;
+}
+
+.block-container p, .warning-container p {
+  font-size: 14px;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.quote, .ayah {
+  font-style: italic;
+  color: #777;
+  font-size: 13px;
+  margin: 16px auto; /* Changed from margin-top and margin-left to auto margins */
+  padding: 8px;
+  background: rgba(26, 60, 52, 0.03);
+  width: 500px;
+  border-radius: 6px;
+}
