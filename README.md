@@ -32,12 +32,12 @@ Musafir incorporates a halal aesthetic with:
 ### Steps
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/musafir.git
-   cd musafir
+   git clone https://github.com/ju4700/chrome-extension.git
+   cd chrome-extension
    ```
 
 2. **Install Dependencies** (if building locally):
-   - Ensure `fonts/Tajawal-Regular.ttf` and `icons/*.png` are in their respective folders.
+   - Ensure `AlQalam.ttf` and `icons/*.png` are in their respective folders.
    - No additional dependencies are required for the base extension, but you can use a linter (e.g., ESLint) for code quality.
 
 3. **Load the Extension in Chrome**:
