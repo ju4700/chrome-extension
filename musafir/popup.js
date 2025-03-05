@@ -1,8 +1,21 @@
-// State management
 let state = { isActive: false, endTime: null };
 
-// Set timer for activation
 async function setTimer(durationMs) {
+  let initialState;
+  try {
+    initialState = await new Promise((resolve) => {
+      chrome.runtime.sendMessage({ action: 'getState' }, (response) => {
+        resolve(response || { isActive: false, endTime: null });
+      });
+    });
+  } catch (e) {
+    console.error('Failed to get initial state:', e);
+    initialState = { isActive: false, endTime: null }; 
+  }
+
+  state.isActive = initialState.isActive;
+  state.endTime = initialState.endTime;
+
   if (!state.isActive) {
     const endTime = Date.now() + durationMs;
     await chrome.storage.local.set({ isActive: true, endTime });
@@ -17,7 +30,6 @@ async function setTimer(durationMs) {
   }
 }
 
-// Event listeners
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('quick').addEventListener('click', () => setTimer(3600000));
   document.getElementById('daily').addEventListener('click', () => setTimer(86400000));
@@ -28,17 +40,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hours && hours <= 2592000000) setTimer(hours);
   });
 
-  // Initialize UI and check active state
-  chrome.storage.local.get(['isActive', 'endTime'], (data) => {
-    state.isActive = data.isActive || false;
-    state.endTime = data.endTime || null;
-    if (state.isActive && state.endTime > Date.now()) {
-      updateUI(state.endTime); // Display countdown if already active
+  function updateState() {
+    chrome.runtime.sendMessage({ action: 'getState' }, (response) => {
+      if (response) {
+        state.isActive = response.isActive || false;
+        state.endTime = response.endTime || null;
+        updateUI(state.endTime);
+      } else {
+        console.warn('No response from getState, using local state');
+        updateUI(state.endTime); 
+      }
+    });
+  }
+  updateState(); 
+  setInterval(updateState, 1000); 
+  chrome.runtime.onMessage.addListener((msg) => {
+    if (msg.action === 'updateState') {
+      state.isActive = msg.isActive;
+      state.endTime = msg.endTime;
+      updateUI(state.endTime); 
     }
   });
 });
 
-// Update UI
 function updateUI(endTime) {
   const status = document.getElementById('status');
   const controlPanel = document.getElementById('control-panel');
@@ -66,7 +90,6 @@ function updateUI(endTime) {
   updateStats();
 }
 
-// Update statistics
 async function updateStats() {
   const { startTime, blockLog } = await chrome.storage.local.get(['startTime', 'blockLog']);
   const focusTime = startTime ? formatTime(Date.now() - startTime) : 'N/A';
@@ -74,7 +97,6 @@ async function updateStats() {
   document.getElementById('stats').innerHTML = `Focus: ${focusTime}<br>Blocks: ${blocks}`;
 }
 
-// Format time
 function formatTime(ms) {
   const days = Math.floor(ms / 86400000);
   const hours = Math.floor((ms % 86400000) / 3600000);

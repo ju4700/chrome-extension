@@ -1,4 +1,3 @@
-/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -9,33 +8,30 @@ body {
   font-family: 'Open Sans', sans-serif;
   width: 360px;
   padding: 20px;
-  background: #eeeeee; /* Softer premium background */
-  color: #1A1A1A; /* Darker text for readability */
+  background: #eeeeee; 
+  color: #1A1A1A; 
   line-height: 1.6;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* Enhanced shadow for depth */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); 
   overflow: hidden;
 }
 
-/* Define Local Arabic Font */
 @font-face {
   font-family: 'AlQalam';
   src: url('fonts/AlQalam.ttf') format('truetype');
 }
 
-/* Container */
 .container {
   background: #FFFFFF;
   overflow: hidden;
-  border: 1px solid #E0E0E0; /* Subtle border for definition */
+  border: 1px solid #E0E0E0; 
 }
 
-/* Header */
 header {
   text-align: center;
   padding: 24px;
-  background: linear-gradient(135deg, #2E7D32, #388E3C); /* Gradient for premium look */
+  background: linear-gradient(135deg, #2E7D32, #388E3C); 
   color: #FFFFFF;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Soft divider */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 h1 {
@@ -56,7 +52,7 @@ h1 .arabic {
 
 .tagline {
   font-size: 14px;
-  color: #A5D6A7; /* Lighter green for contrast */
+  color: #A5D6A7; 
   margin-top: 8px;
   font-weight: 600;
 }
@@ -69,9 +65,8 @@ h1 .arabic {
   font-weight: 400;
 }
 
-/* Main Content */
 main {
-  padding: 24px 20px; /* Increased padding for elegance */
+  padding: 24px 20px; 
 }
 
 .control-panel {
@@ -95,12 +90,12 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
   background: #66BB6A;
-  transform: translateY(-2px); /* Lift effect */
+  transform: translateY(-2px); 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -185,24 +180,22 @@ button:active {
   color: #757575;
   text-align: center;
   border-top: 1px solid #E0E0E0;
-  background: #eff8ef; /* Slight background for distinction */
+  background: #eff8ef; 
 }
 
-/* Block Container */
-/* Block Container */
 .block-container {
-  width: 80%; /* Reduced from 100% to create margin space */
-  margin: 40px auto; /* Increased top margin to move it down from top */
+  width: 80%; 
+  margin: 40px auto;
   text-align: center;
   padding: 24px;
   background: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   font-family: 'Open Sans', sans-serif;
-  position: absolute; /* Position absolutely to center it properly */
+  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Center both horizontally and vertically */
+  transform: translate(-50%, -50%);
 }
 
 .block-container h1 {

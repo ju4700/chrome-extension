@@ -1,4 +1,3 @@
-// Save settings
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('save').addEventListener('click', () => {
     const profile = document.getElementById('profile').value;
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Clear statistics
   document.getElementById('clearStats').addEventListener('click', () => {
     chrome.storage.local.set({ blockLog: [] }, () => {
       document.getElementById('blockLog').value = '';
@@ -26,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Load settings
   chrome.storage.local.get(['activeProfile', 'customProfiles', 'blockLog'], (data) => {
     document.getElementById('profile').value = data.activeProfile || 'strict';
     document.getElementById('customList').value = (data.customProfiles?.custom?.custom || []).join('\n');

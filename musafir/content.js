@@ -5,9 +5,8 @@ chrome.storage.local.get(['isActive'], (data) => {
   if (isActive && document.body) processMedia();
 });
 
-// Process media elements
 function processMedia() {
-  if (!document.body) return; // Ensure body exists
+  if (!document.body) return;
   const mediaTypes = ['img', 'video', 'iframe', 'object', 'embed', 'picture'];
   const haramKeywords = [
     'porn', 'xxx', 'porno', 'xvideos', 'pornhub', 'onlyfans', 'nsfw', 'hentai', 'chaturbate', 'adultfriendfinder', 'playboy', 'bangbros', 'redtube', 'youporn', 'xhamster', 'xnxx', 'tnaflix',
@@ -33,7 +32,6 @@ function processMedia() {
   }
 }
 
-// Observe document changes with safety check
 const observer = new MutationObserver(() => {
   if (document.body) {
     chrome.storage.local.get(['isActive'], (data) => {
@@ -48,7 +46,6 @@ if (document.body) {
   console.warn('Document body not available, observer not initialized.');
 }
 
-// Apply blur effect
 function applyBlur(element) {
   if (!element.classList.contains('musafir-blur')) {
     element.classList.add('musafir-blur');
