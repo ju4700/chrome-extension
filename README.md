@@ -21,7 +21,7 @@ Musafir incorporates a halal aesthetic with:
 - Quranic ayahs (e.g., Quran 24:30, 2:45) for spiritual guidance.
 - Elegant Arabic typography with the "Tajawal" font.
 
-![image](https://github.com/user-attachments/assets/00c57a18-966b-475a-9834-8d0d27800370)
+![image](https://github.com/user-attachments/assets/6721f411-a74f-46f5-b887-110c372d9864)
 
 ---
 
