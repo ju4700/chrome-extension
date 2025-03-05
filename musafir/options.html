@@ -1,40 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Musafir Settings</title>
   <link rel="stylesheet" href="popup.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Settings</h1>
-    <p class="subtitle">Customize your protection</p>
-    <p class="ayah">"And those who strive for Us—We will surely guide them..." (29:69)</p>
-  </header>
-  <section>
-    <h2>Profile</h2>
-    <select id="profile">
-      <option value="strict">Strict</option>
-      <option value="moderate">Moderate</option>
-      <option value="custom">Custom</option>
-    </select>
-  </section>
-  <section>
-    <h2>Custom Domains</h2>
-    <textarea id="customList" rows="6" cols="35" placeholder="e.g., badsite.com"></textarea>
-  </section>
-  <section>
-    <h2>Custom Regex</h2>
-    <textarea id="customRegex" rows="4" cols="35" placeholder="e.g., .*\\.bad.*"></textarea>
-  </section>
-  <section>
-    <h2>Block Log</h2>
-    <textarea id="blockLog" rows="4" cols="35" readonly placeholder="Blocked attempts will appear here"></textarea>
-  </section>
-  <section class="actions">
-    <button id="save" class="primary">Save</button>
-    <button id="clearStats">Reset Stats</button>
-  </section>
+  <div class="container">
+    <header>
+      <h1>Settings</h1>
+      <p class="ayah">"And those who strive for Us—We will surely guide them..." (Quran 29:69)</p>
+    </header>
+    <main>
+      <section class="settings-section">
+        <h2>Profile</h2>
+        <select id="profile">
+          <option value="strict">Strict</option>
+          <option value="moderate">Moderate</option>
+          <option value="custom">Custom</option>
+        </select>
+      </section>
+      <section class="settings-section">
+        <h2>Custom Domains</h2>
+        <textarea id="customList" rows="6" cols="35" placeholder="e.g., badsite.com"></textarea>
+      </section>
+      <section class="settings-section">
+        <h2>Custom Regex</h2>
+        <textarea id="customRegex" rows="4" cols="35" placeholder="e.g., .*\\.bad.*"></textarea>
+      </section>
+      <section class="settings-section">
+        <h2>Block Log</h2>
+        <textarea id="blockLog" rows="4" cols="35" readonly placeholder="Blocked attempts appear here"></textarea>
+      </section>
+      <section class="actions">
+        <button id="save" class="primary">Save Changes</button>
+        <button id="clearStats">Reset Stats</button>
+      </section>
+    </main>
+  </div>
   <script src="options.js"></script>
 </body>
 </html>

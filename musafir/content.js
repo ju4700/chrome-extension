@@ -1,70 +1,57 @@
 let isActive = false;
-let whitelist = [];
-let reported = [];
 
-chrome.storage.local.get(['isActive', 'whitelist', 'reported'], (data) => {
+chrome.storage.local.get(['isActive'], (data) => {
   isActive = data.isActive || false;
-  whitelist = data.whitelist || [];
-  reported = data.reported || [];
-  if (isActive) processMedia();
+  if (isActive && document.body) processMedia();
 });
 
+// Process media elements
 function processMedia() {
+  if (!document.body) return; // Ensure body exists
   const mediaTypes = ['img', 'video', 'iframe', 'object', 'embed', 'picture'];
   const haramKeywords = [
-    'porn', 'xxx', 'sex', 'nude', 'erotic', 'adult', 'cam', 'escort', 'strip', 'fetish', 'porno', 'xvideos', 'pornhub', 'onlyfans', 'nsfw', 'hentai', 'webcam', 'livejasmin', 'chaturbate',
-    'adultfriendfinder', 'playboy', 'bangbros', 'redtube', 'youporn', 'xhamster', 'xnxx', 'tnaflix', 'brazzers', 'realitykings', 'slut', 'orgy', 'threesome', 'lingerie', 'seduction', 'prostitute',
-    'bet', 'casino', 'poker', 'gamble', 'lottery', 'bingo', 'slots', 'wager', 'odds', 'bet365', 'paddy', 'ladbrokes', 'roulette', 'blackjack', '888casino', 'betfair', 'williamhill', 'partypoker',
-    'sportsbet', 'draftkings', 'fanduel', 'gamblingzone', 'jackpot', 'payout', 'dice', 'baccarat', 'keno', 'scratchcard', 'raffle', 'bookie',
-    'beer', 'wine', 'vodka', 'whiskey', 'liquor', 'alcohol', 'drunk', 'bar', 'cocktail', 'gin', 'rum', 'tequila', 'brew', 'distillery', 'booze', 'moonshine', 'absinthe', 'sake', 'mead', 'ale',
-    'stout', 'lager', 'brandy', 'porto', 'champagne', 'cider', 'schnapps', 'liquorstore', 'pub', 'tavern',
-    'gore', 'blood', 'fight', 'kill', 'murder', 'violent', 'torture', 'brutal', 'death', 'assault', 'war', 'shoot', 'stab', 'execution', 'slaughter', 'massacre', 'carnage', 'beheading',
-    'genocide', 'riot', 'brawl', 'combat', 'duel', 'slaughterhouse', 'horror', 'thriller', 'psycho', 'sniper'
+    'porn', 'xxx', 'porno', 'xvideos', 'pornhub', 'onlyfans', 'nsfw', 'hentai', 'chaturbate', 'adultfriendfinder', 'playboy', 'bangbros', 'redtube', 'youporn', 'xhamster', 'xnxx', 'tnaflix',
+    'brazzers', 'realitykings', 'orgy', 'threesome', 'prostitute', 'escortservice', 'stripclub', 'fetishsite', 'livejasmin', 'webcamsex', 'adultfilm', 'x-rated', 'explicitvideo', 'uncensoredporn',
+    'hardcoreporn', 'softcoreporn', 'adultactress', 'adultactor', 'pornstar', 'adultstudio', 'adultproduction', 'adultchannel', 'adultstream', 'adultforum', 'adultcommunity', 'adultnetwork',
+    'toplessvideo', 'nudevideo', 'sexvideo', 'eroticvideo', 'adultlive', 'adultshow', 'adultmodel', 'adultphoto', 'adultimage', 'adultclip', 'adultscene', 'adultwebsite', 'adultlink', 'adultpage',
+    'adultgallery', 'adultpic', 'camgirl', 'camshow', 'livecamsex', 'privatecam', 'sexchat', 'cybersexchat', 'adultchatroom', 'sextingapp', 'adultgame', 'eroticgame', 'seductionvideo',
+    'intimatemovie', 'lustfilm', 'arousalvideo', 'orgasmvideo', 'ejaculationvideo', 'condomvideo', 'dildovideo', 'vibratorvideo', 'bondagevideo', 'bdsmvideo', 'dominationvideo', 'submissionvideo',
+    'spankingvideo', 'voyeurvideo', 'exhibitionvideo', 'cuckoldvideo', 'milfvideo', 'teenporn', 'amateurporn', 'professionalporn', 'stripteasevideo', 'lapdancevideo', 'massagevideo', 'sensualvideo',
+    'adultcontent', 'adultentertainment', 'adultindustry', 'adultservices', 'adultmedia', 'adultchannel', 'adultstream', 'adultforum', 'adultcommunity', 'adultnetwork', 'topless', 'nude', 'exposed',
+    'genitalia', 'copulation', 'intercourse', 'fellatio', 'cunnilingus', 'pornography', 'adultphoto', 'adultimage', 'adultclip', 'adultscene', 'adultshow', 'adultlive', 'adultmodel', 'adultstar'
   ];
-  const elements = document.querySelectorAll(mediaTypes.join(','));
 
+  const elements = document.querySelectorAll(mediaTypes.join(','));
   for (let el of elements) {
     const src = el.src ? el.src.toLowerCase() : '';
     const alt = el.alt ? el.alt.toLowerCase() : '';
     const title = el.title ? el.title.toLowerCase() : '';
     const parentText = el.parentElement ? el.parentElement.textContent.toLowerCase() : '';
-    if (whitelist.includes(src)) continue;
-    if (reported.includes(src) || haramKeywords.some(k => src.includes(k) || alt.includes(k) || title.includes(k) || parentText.includes(k))) {
+    if (isActive && haramKeywords.some(k => src.includes(k) || alt.includes(k) || title.includes(k) || parentText.includes(k))) {
       applyBlur(el);
     }
   }
-
-  el.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    chrome.runtime.sendMessage({ action: 'showMediaMenu', src: el.src });
-  });
 }
 
-const observer = new MutationObserver(throttle(processMedia, 200));
-observer.observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
-
-function applyBlur(element) {
-  element.classList.add('musafir-blur');
-  element.dataset.originalSrc = element.src || '';
-}
-
-function throttle(func, delay) {
-  let lastCall = 0;
-  return (...args) => {
-    const now = Date.now();
-    if (now - lastCall >= delay) {
-      lastCall = now;
-      func(...args);
-    }
-  };
-}
-
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.action === 'unblur' && msg.src) {
-    const el = document.querySelector(`[data-original-src="${msg.src}"]`);
-    if (el) el.classList.remove('musafir-blur');
-  } else if (msg.action === 'report' && msg.src) {
-    reported.push(msg.src);
-    chrome.storage.local.set({ reported });
+// Observe document changes with safety check
+const observer = new MutationObserver(() => {
+  if (document.body) {
+    chrome.storage.local.get(['isActive'], (data) => {
+      isActive = data.isActive || false;
+      if (isActive) processMedia();
+    });
   }
 });
+if (document.body) {
+  observer.observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
+} else {
+  console.warn('Document body not available, observer not initialized.');
+}
+
+// Apply blur effect
+function applyBlur(element) {
+  if (!element.classList.contains('musafir-blur')) {
+    element.classList.add('musafir-blur');
+    element.dataset.originalSrc = element.src || '';
+  }
+}
