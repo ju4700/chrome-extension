@@ -1,4 +1,4 @@
-# Musafir Chrome Extension Documentation
+# Musafir Chrome Extension
 
 ## Overview
 
