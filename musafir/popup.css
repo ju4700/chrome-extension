@@ -183,38 +183,64 @@ button:active {
   background: #eff8ef; 
 }
 
+/*Block Container*/
 .block-container {
-  width: 80%; 
-  margin: 40px auto;
+  width: 100%; 
+  height: 100vh;
+  margin: 0;
   text-align: center;
-  padding: 24px;
-  background: #FFFFFF;
-  border-radius: 10px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  padding: 0;
+  background: #f9fcfa;
   font-family: 'Open Sans', sans-serif;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* Remove the decorative pattern */
+.block-container::before {
+  display: none;
 }
 
 .block-container h1 {
-  font-size: 26px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 600;
   color: #2E7D32;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+}
+
+/* Remove the decorative underline */
+.block-container h1::after {
+  display: none;
 }
 
 .block-container p {
-  font-size: 16px;
-  color: #1A1A1A;
-  margin-bottom: 12px;
-  line-height: 1.6;
+  font-size: 15px;
+  color: #444444;
+  margin-bottom: 14px;
+  line-height: 1.5;
+  max-width: 500px;
+  padding: 0 16px;
+}
+
+.block-container .content-wrapper {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 6px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  max-width: 600px;
+  width: 90%;
 }
 
 .ayah {
   font-size: 14px;
   font-style: italic;
   color: #81C784;
-  margin-top: 18px;
+  margin-top: 0px;
 }
