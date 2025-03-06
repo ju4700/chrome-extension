@@ -1,7 +1,6 @@
 // Check if the page is a Chrome internal page
 if (window.location.protocol === 'chrome:') {
   console.log('Content script disabled on Chrome internal page:', window.location.href);
-  return;
 }
 
 let isActive = false;
