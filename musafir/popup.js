@@ -1,72 +1,103 @@
+// State management
 let state = { isActive: false, endTime: null };
 
+// Set timer for activation
 async function setTimer(durationMs) {
-  let initialState;
-  try {
-    initialState = await new Promise((resolve) => {
-      chrome.runtime.sendMessage({ action: 'getState' }, (response) => {
-        resolve(response || { isActive: false, endTime: null });
-      });
+  console.log('setTimer called with duration:', durationMs);
+  // Fetch the latest state before proceeding
+  await new Promise((resolve) => {
+    chrome.storage.local.get(['isActive', 'endTime'], (data) => {
+      state.isActive = data.isActive || false;
+      state.endTime = data.endTime || null;
+      console.log('Current state before activation:', state);
+      resolve();
     });
-  } catch (e) {
-    console.error('Failed to get initial state:', e);
-    initialState = { isActive: false, endTime: null }; 
-  }
-
-  state.isActive = initialState.isActive;
-  state.endTime = initialState.endTime;
+  });
 
   if (!state.isActive) {
     const endTime = Date.now() + durationMs;
+    console.log('Setting new timer: endTime =', new Date(endTime).toLocaleString());
     await chrome.storage.local.set({ isActive: true, endTime });
     state.isActive = true;
     state.endTime = endTime;
     updateUI(endTime);
     chrome.runtime.sendMessage({ action: 'startTimer', duration: durationMs }, (response) => {
-      if (!response || !response.success) console.error('Activation failed:', response?.message);
+      console.log('Background response:', response);
+      if (!response || !response.success) {
+        console.error('Activation failed:', response?.message || 'No response from background');
+      }
     });
   } else {
+    console.log('Extension already active, alerting user.');
     alert('Musafir is already active until ' + new Date(state.endTime).toLocaleString());
   }
 }
 
+// Event listeners
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('quick').addEventListener('click', () => setTimer(3600000));
-  document.getElementById('daily').addEventListener('click', () => setTimer(86400000));
-  document.getElementById('week').addEventListener('click', () => setTimer(604800000));
-  document.getElementById('month').addEventListener('click', () => setTimer(2592000000));
-  document.getElementById('start').addEventListener('click', () => {
-    const hours = parseInt(document.getElementById('custom').value) * 3600000;
-    if (hours && hours <= 2592000000) setTimer(hours);
-  });
+  console.log('Popup loaded');
+  const quickButton = document.getElementById('quick');
+  const dailyButton = document.getElementById('daily');
+  const weekButton = document.getElementById('week');
+  const monthButton = document.getElementById('month');
+  const startButton = document.getElementById('start');
 
-  function updateState() {
-    chrome.runtime.sendMessage({ action: 'getState' }, (response) => {
-      if (response) {
-        state.isActive = response.isActive || false;
-        state.endTime = response.endTime || null;
-        updateUI(state.endTime);
-      } else {
-        console.warn('No response from getState, using local state');
-        updateUI(state.endTime); 
-      }
-    });
+  if (!quickButton || !dailyButton || !weekButton || !monthButton || !startButton) {
+    console.error('One or more buttons not found in popup.html');
+    return;
   }
-  updateState(); 
-  setInterval(updateState, 1000); 
-  chrome.runtime.onMessage.addListener((msg) => {
-    if (msg.action === 'updateState') {
-      state.isActive = msg.isActive;
-      state.endTime = msg.endTime;
-      updateUI(state.endTime); 
+
+  quickButton.addEventListener('click', () => {
+    console.log('1 Hour button clicked');
+    setTimer(3600000); // 1 hour
+  });
+  dailyButton.addEventListener('click', () => {
+    console.log('24 Hours button clicked');
+    setTimer(86400000); // 24 hours
+  });
+  weekButton.addEventListener('click', () => {
+    console.log('1 Week button clicked');
+    setTimer(604800000); // 1 week
+  });
+  monthButton.addEventListener('click', () => {
+    console.log('1 Month button clicked');
+    setTimer(2592000000); // 1 month
+  });
+  startButton.addEventListener('click', () => {
+    console.log('Custom Activate button clicked');
+    const hours = parseInt(document.getElementById('custom').value) * 3600000;
+    if (hours && hours <= 2592000000) {
+      console.log('Custom duration:', hours);
+      setTimer(hours);
+    } else {
+      console.error('Invalid custom duration:', hours);
+      alert('Please enter a valid duration (1-720 hours).');
     }
   });
+
+  // Initialize UI
+  function updateState() {
+    chrome.storage.local.get(['isActive', 'endTime'], (data) => {
+      state.isActive = data.isActive || false;
+      state.endTime = data.endTime || null;
+      console.log('Updated state:', state);
+      updateUI(state.endTime);
+    });
+  }
+  updateState(); // Initial update
+  setInterval(updateState, 1000); // Poll every second
 });
 
+// Update UI
 function updateUI(endTime) {
   const status = document.getElementById('status');
   const controlPanel = document.getElementById('control-panel');
+  if (!status || !controlPanel) {
+    console.error('Status or control panel elements not found');
+    return;
+  }
   if (endTime && Date.now() < endTime) {
+    console.log('Updating UI to active state');
     controlPanel.style.display = 'none';
     status.style.display = 'block';
     status.innerHTML = `Active until ${new Date(endTime).toLocaleString()}<br>Remaining: <span id="countdown"></span>`;
@@ -83,6 +114,7 @@ function updateUI(endTime) {
       }
     }, 1000);
   } else {
+    console.log('Updating UI to inactive state');
     controlPanel.style.display = 'block';
     status.style.display = 'none';
     status.innerHTML = '';
@@ -90,13 +122,20 @@ function updateUI(endTime) {
   updateStats();
 }
 
+// Update statistics
 async function updateStats() {
   const { startTime, blockLog } = await chrome.storage.local.get(['startTime', 'blockLog']);
   const focusTime = startTime ? formatTime(Date.now() - startTime) : 'N/A';
   const blocks = (blockLog || []).length;
-  document.getElementById('stats').innerHTML = `Focus: ${focusTime}<br>Blocks: ${blocks}`;
+  const stats = document.getElementById('stats');
+  if (stats) {
+    stats.innerHTML = `Focus: ${focusTime}<br>Blocks: ${blocks}`;
+  } else {
+    console.error('Stats element not found');
+  }
 }
 
+// Format time
 function formatTime(ms) {
   const days = Math.floor(ms / 86400000);
   const hours = Math.floor((ms % 86400000) / 3600000);

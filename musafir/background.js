@@ -1,3 +1,4 @@
+// State management
 let state = {
   isActive: false,
   endTime: null,
@@ -22,18 +23,28 @@ let state = {
   }
 };
 
+// Initialize state
 async function initialize() {
   const data = await chrome.storage.local.get(['isActive', 'endTime', 'activeProfile', 'customProfiles']);
   state.isActive = data.isActive || false;
   state.endTime = data.endTime || null;
   state.activeProfile = data.activeProfile || 'strict';
   if (data.customProfiles) state.profiles.custom = data.customProfiles;
-  if (state.isActive && state.endTime > Date.now()) {
-    enforceTimer(); 
+
+  // Reset expired timer
+  const now = Date.now();
+  if (state.isActive && state.endTime && state.endTime < now) {
+    state.isActive = false;
+    state.endTime = null;
+    await chrome.storage.local.set({ isActive: false, endTime: null });
+    console.log('Reset expired timer state at:', new Date().toLocaleString());
+  } else if (state.isActive && state.endTime > now) {
+    enforceTimer();
   }
   await updateDeclarativeRules();
 }
 
+// Blocking logic
 chrome.webNavigation.onBeforeNavigate.addListener((details) => {
   if (!state.isActive) return;
   try {
@@ -51,6 +62,7 @@ chrome.webNavigation.onBeforeNavigate.addListener((details) => {
   }
 }, { url: [{ urlMatches: '<all_urls>' }] });
 
+// Update declarative rules
 async function updateDeclarativeRules() {
   const profile = state.profiles[state.activeProfile];
   const keywords = state.haramKeywords.adult.concat(profile.custom || []);
@@ -70,11 +82,10 @@ async function updateDeclarativeRules() {
   }
 }
 
+// Context menu
 if (chrome.contextMenus) {
   chrome.contextMenus.create({ id: 'blockSite', title: 'Block Site', contexts: ['page'] }, () => {
-    if (chrome.runtime.lastError) {
-      console.error('Context menu creation failed:', chrome.runtime.lastError.message);
-    }
+    if (chrome.runtime.lastError) console.error('Context menu error:', chrome.runtime.lastError.message);
   });
   chrome.contextMenus.onClicked.addListener((info) => {
     const url = new URL(info.pageUrl).hostname;
@@ -87,6 +98,7 @@ if (chrome.contextMenus) {
   });
 }
 
+// Tamper resistance
 chrome.alarms.create('checkState', { periodInMinutes: 0.25 });
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === 'checkState' && state.isActive && state.endTime > Date.now()) {
@@ -101,6 +113,7 @@ chrome.management.onDisabled.addListener(() => {
   }
 });
 
+// Logging
 function logAttempt(url) {
   chrome.storage.local.get('blockLog', (data) => {
     const log = data.blockLog || [];
@@ -110,6 +123,7 @@ function logAttempt(url) {
   });
 }
 
+// Timer enforcement
 function enforceTimer() {
   if (!state.isActive || !state.endTime) return;
   const now = Date.now();
@@ -123,6 +137,7 @@ function enforceTimer() {
   }
 }
 
+// Format time
 function formatTime(ms) {
   const days = Math.floor(ms / 86400000);
   const hours = Math.floor((ms % 86400000) / 3600000);
@@ -131,6 +146,7 @@ function formatTime(ms) {
   return `${days}d ${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
+// Notifications
 function notify(title, message) {
   if (chrome.notifications) {
     chrome.notifications.create({
@@ -142,45 +158,29 @@ function notify(title, message) {
   }
 }
 
-async function notifyPopup() {
-  try {
-    await chrome.runtime.sendMessage({ action: 'updateState', isActive: state.isActive, endTime: state.endTime });
-  } catch (e) {
-    console.warn('Failed to notify popup:', e.message); 
-  }
-}
-
+// Message listener for activation
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  console.log('Received message:', msg);
   if (msg.action === 'startTimer') {
     if (!state.isActive) {
+      console.log('Starting timer with duration:', msg.duration);
       state.isActive = true;
       state.endTime = Date.now() + msg.duration;
       chrome.storage.local.set({ isActive: true, endTime: state.endTime });
       enforceTimer();
-      updateDeclarativeRules().then(() => sendResponse({ success: true }));
-      notifyPopup();
+      updateDeclarativeRules().then(() => {
+        console.log('Timer started, state:', state);
+        sendResponse({ success: true });
+      });
     } else {
+      console.log('Timer already active, rejecting request');
       sendResponse({ success: false, message: 'Already active until ' + new Date(state.endTime).toLocaleString() });
     }
-  } else if (msg.action === 'getState') {
-    sendResponse({ isActive: state.isActive, endTime: state.endTime });
   }
   return true;
 });
 
-chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === 'local' && (changes.isActive || changes.endTime)) {
-    chrome.storage.local.get(['isActive', 'endTime'], (data) => {
-      state.isActive = data.isActive || false;
-      state.endTime = data.endTime || null;
-      if (state.isActive && state.endTime > Date.now()) {
-        enforceTimer(); 
-      }
-      notifyPopup();
-    });
-  }
-});
-
+// Initialize on startup
 chrome.runtime.onInstalled.addListener(() => {
   initialize();
 });

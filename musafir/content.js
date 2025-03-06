@@ -1,3 +1,9 @@
+// Check if the page is a Chrome internal page
+if (window.location.protocol === 'chrome:') {
+  console.log('Content script disabled on Chrome internal page:', window.location.href);
+  return;
+}
+
 let isActive = false;
 
 chrome.storage.local.get(['isActive'], (data) => {
@@ -5,8 +11,12 @@ chrome.storage.local.get(['isActive'], (data) => {
   if (isActive && document.body) processMedia();
 });
 
+// Process media elements
 function processMedia() {
-  if (!document.body) return;
+  if (!document.body) {
+    console.warn('Document body not available, skipping media processing.');
+    return;
+  }
   const mediaTypes = ['img', 'video', 'iframe', 'object', 'embed', 'picture'];
   const haramKeywords = [
     'porn', 'xxx', 'porno', 'xvideos', 'pornhub', 'onlyfans', 'nsfw', 'hentai', 'chaturbate', 'adultfriendfinder', 'playboy', 'bangbros', 'redtube', 'youporn', 'xhamster', 'xnxx', 'tnaflix',
@@ -32,23 +42,49 @@ function processMedia() {
   }
 }
 
-const observer = new MutationObserver(() => {
+// Observe document changes
+const observer = new MutationObserver((mutations) => {
   if (document.body) {
     chrome.storage.local.get(['isActive'], (data) => {
       isActive = data.isActive || false;
       if (isActive) processMedia();
     });
+  } else {
+    console.warn('Document body not available during mutation, skipping.');
   }
 });
+
 if (document.body) {
   observer.observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
 } else {
-  console.warn('Document body not available, observer not initialized.');
+  console.warn('Document body not available, delaying observer initialization.');
+  const checkBody = setInterval(() => {
+    if (document.body) {
+      observer.observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
+      clearInterval(checkBody);
+      console.log('Observer initialized after DOM load');
+    }
+  }, 100); // Check every 100ms
 }
 
 function applyBlur(element) {
   if (!element.classList.contains('musafir-blur')) {
     element.classList.add('musafir-blur');
     element.dataset.originalSrc = element.src || '';
+    element.style.filter = 'blur(20px)';
+    element.style.position = 'relative';
+    const overlay = document.createElement('div');
+    overlay.style.position = 'absolute';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.background = 'rgba(0, 0, 0, 0.5)';
+    overlay.style.color = 'white';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.textContent = 'Blocked by Musafir';
+    element.parentNode.insertBefore(overlay, element.nextSibling);
   }
 }
