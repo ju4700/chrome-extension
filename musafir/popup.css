@@ -183,7 +183,6 @@ button:active {
   background: #eff8ef; 
 }
 
-/*Block Container*/
 .block-container {
   width: 100%; 
   height: 100vh;
@@ -203,7 +202,6 @@ button:active {
   overflow-y: auto;
 }
 
-/* Remove the decorative pattern */
 .block-container::before {
   display: none;
 }
@@ -215,7 +213,6 @@ button:active {
   margin-bottom: 16px;
 }
 
-/* Remove the decorative underline */
 .block-container h1::after {
   display: none;
 }
