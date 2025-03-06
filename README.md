@@ -31,7 +31,7 @@ Here’s how you can install it using the `musafir.crx` file—no tech skills ne
 
 #### Steps to Install
 1. **Grab the .crx File**:  
-   - Download `musafir.crx` from here: [[https://ju4700.github.io/chrome-extension/downloads/musafir.crx](https://github.com/ju4700/musafir-extension/releases/download/v1.0.1/musafir.crx)](https://ju4700.github.io/musafir-extension/downloads/musafir.crx). It’s a safe link, so no worries!
+   - Download `musafir.crx` from here: [[https://ju4700.github.io/chrome-extension/downloads/musafir.crx](https://ju4700.github.io/musafir-extension/downloads/musafir.crx). It’s a safe link, so no worries!
 
 2. **Turn On Developer Mode in Chrome**:  
    - Open Chrome and type `chrome://extensions/` in the address bar, then hit Enter.  
