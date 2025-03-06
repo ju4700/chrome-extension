@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Musafir",
-  "version": "5.1",
+  "version": "1.1",
   "description": "A powerful, tamper-proof shield against adult haram content.",
   "permissions": [
     "webNavigation",
