@@ -76,6 +76,36 @@
         .section a:hover {
             text-decoration: underline;
         }
+        /* Feedback Form Styling */
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-left: 10px;
+        }
+        .feedback-form textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #555;
+            resize: vertical;
+        }
+        .feedback-form button {
+            align-self: flex-start;
+            padding: 8px 20px;
+            background-color: #2e7d32;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .feedback-form button:hover {
+            background-color: #388e3c;
+        }
         footer {
             text-align: center;
             padding-top: 20px;
@@ -95,6 +125,12 @@
                 font-size: 1.3em;
             }
             .section p, .section ul {
+                font-size: 0.95em;
+            }
+            .feedback-form textarea {
+                font-size: 0.95em;
+            }
+            .feedback-form button {
                 font-size: 0.95em;
             }
         }
@@ -139,6 +175,18 @@
         <div class="section">
             <h2>Updates</h2>
             <p>Version 1.0.0 (March 6, 2025): Initial release with blocking and media blurring. Future updates may include whitelists and analytics.</p>
+        </div>
+
+        <div class="section">
+            <h2>Feedback</h2>
+            <p>We value your input! Share your thoughts anonymously below:</p>
+            <form class="feedback-form" action="https://formsubmit.co/jalal.dev.design@gmail.com" method="POST">
+                <textarea name="Feedback" placeholder="Your feedback..." required></textarea>
+                <input type="hidden" name="_subject" value="Musafir Feedback Submission">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://yourusername.github.io/musafir-support/thank-you.html">
+                <button type="submit">Submit Feedback</button>
+            </form>
         </div>
 
         <footer>
