@@ -61,13 +61,6 @@ Let me know if you run into any issues—I’m here to help! You can reach out v
 
 ---
 
-### Notes on the Rewrite
-- **Tone**: Kept it professional but friendly with phrases like “Hey friends!” and “I promise!” to make it approachable for your friends.
-- **Clarity**: Simplified the steps while keeping all necessary details (e.g., enabling Developer mode, drag-and-drop process).
-- **Reassurance**: Addressed the security warning in a casual way to ease concerns, emphasizing trust in your source.
-- **Call to Action**: Encouraged testing and provided support options, making it easy for your friends to reach out.
-
-Let me know if you’d like further adjustments or need help with anything else!
 ## Usage
 
 ### Activation
