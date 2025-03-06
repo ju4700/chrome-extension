@@ -1,10 +1,7 @@
-// State management
 let state = { isActive: false, endTime: null };
 
-// Set timer for activation
 async function setTimer(durationMs) {
   console.log('setTimer called with duration:', durationMs);
-  // Fetch the latest state before proceeding
   await new Promise((resolve) => {
     chrome.storage.local.get(['isActive', 'endTime'], (data) => {
       state.isActive = data.isActive || false;
@@ -33,7 +30,6 @@ async function setTimer(durationMs) {
   }
 }
 
-// Event listeners
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Popup loaded');
   const quickButton = document.getElementById('quick');
@@ -49,19 +45,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   quickButton.addEventListener('click', () => {
     console.log('1 Hour button clicked');
-    setTimer(3600000); // 1 hour
+    setTimer(3600000);
   });
   dailyButton.addEventListener('click', () => {
     console.log('24 Hours button clicked');
-    setTimer(86400000); // 24 hours
+    setTimer(86400000);
   });
   weekButton.addEventListener('click', () => {
     console.log('1 Week button clicked');
-    setTimer(604800000); // 1 week
+    setTimer(604800000);
   });
   monthButton.addEventListener('click', () => {
     console.log('1 Month button clicked');
-    setTimer(2592000000); // 1 month
+    setTimer(2592000000);
   });
   startButton.addEventListener('click', () => {
     console.log('Custom Activate button clicked');
@@ -75,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Initialize UI
   function updateState() {
     chrome.storage.local.get(['isActive', 'endTime'], (data) => {
       state.isActive = data.isActive || false;
@@ -84,11 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
       updateUI(state.endTime);
     });
   }
-  updateState(); // Initial update
-  setInterval(updateState, 1000); // Poll every second
+  updateState(); 
+  setInterval(updateState, 1000); 
 });
 
-// Update UI
 function updateUI(endTime) {
   const status = document.getElementById('status');
   const controlPanel = document.getElementById('control-panel');
@@ -122,7 +116,6 @@ function updateUI(endTime) {
   updateStats();
 }
 
-// Update statistics
 async function updateStats() {
   const { startTime, blockLog } = await chrome.storage.local.get(['startTime', 'blockLog']);
   const focusTime = startTime ? formatTime(Date.now() - startTime) : 'N/A';
@@ -135,7 +128,6 @@ async function updateStats() {
   }
 }
 
-// Format time
 function formatTime(ms) {
   const days = Math.floor(ms / 86400000);
   const hours = Math.floor((ms % 86400000) / 3600000);
