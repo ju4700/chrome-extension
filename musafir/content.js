@@ -1,1 +1,0 @@
-// content.js is now empty as the blur feature is to be implemented yet.
