@@ -4,7 +4,7 @@
 
 **Musafir** is a powerful, tamper-proof Chrome extension designed to protect users from adult haram (forbidden) content on the web. Once activated for a specified period, the extension cannot be disabled until the timer expires, ensuring a committed and uninterrupted focus on maintaining digital purity. Built with a modern, minimalistic design and a halal vibe, Musafir leverages an extensive keyword-based filtering system to block and blur adult content across all tabs and sites.
 
-- **Version**: 5.1
+- **Version**: 1.1
 - **Last Updated**: March 05, 2025
 
 ### Key Features
