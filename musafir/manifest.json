@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Musafir",
   "version": "1.1",
-  "description": "A powerful, tamper-proof shield against adult haram content. Support at https://ju4700.github.io/musafir-chrome-extension",
+  "description": "A powerful, tamper-proof shield against adult haram content. Support at https://ju4700.github.io/musafir-extension",
   "permissions": [
     "webNavigation",
     "storage",
