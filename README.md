@@ -22,8 +22,7 @@ Musafir incorporates a halal aesthetic with:
 - Elegant Arabic typography with the "Tajawal" font.
 
 ![Screenshot From 2025-03-06 19-24-42](https://github.com/user-attachments/assets/0fde476d-4cc3-4b49-84ac-6e90cf3a8088)
-![Screenshot From 2025-03-06 19-25-01](https://github.com/user-attachments/assets/9d19c6ac-89b6-421e-a164-b2d4a4e5dabe)
-
+![Screenshot From 2025-03-07 01-42-34](https://github.com/user-attachments/assets/adc09e09-412c-4eb3-bf08-34c8311be219)
 ---
 
 ## Installation
